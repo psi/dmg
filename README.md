@@ -35,6 +35,7 @@ Optionally, the LWRP can install an "mpkg" package using installer(8).
 * `type` - type of package, "app" or "mpkg". Default is "app". When using "mpkg", the destination must be /Applications.
 * `volumes_dir` - Directory under /Volumes where the dmg is mounted. Not all dmgs are mounted into a /Volumes location matching the name of the dmg. If not specified, this will use the name attribute.
 * `dmg_name` - Specify the name of the dmg if it is not the same as `app`, or if the name has spaces.
+* `mpkg_name` - Specify the name of mkpg inside the dmg if it is not the same as `app`
 
 Usage Examples
 ==============

@@ -36,6 +36,12 @@ action :install do
     dmg_name = new_resource.dmg_name ? new_resource.dmg_name : new_resource.app
     dmg_file = "#{Chef::Config[:file_cache_path]}/#{dmg_name}.dmg"
 
+    mpkg_name = new_resource.mpkg_name ? new_resource.mpkg_name : new_resource.app
+
+    unless ::File.extname(mpkg_name) == ".mpkg"
+      mpkg_name = "#{mpkg_name}.mpkg"
+    end
+
     if new_resource.source
       remote_file dmg_file do
         source new_resource.source
@@ -51,7 +57,7 @@ action :install do
     when "app"
       execute "cp -R '/Volumes/#{volumes_dir}/#{new_resource.app}.app' '#{new_resource.destination}'"
     when "mpkg"
-      execute "sudo installer -pkg /Volumes/#{volumes_dir}/#{new_resource.app}.mpkg -target /"
+      execute "sudo installer -pkg '/Volumes/#{volumes_dir}/#{mpkg_name}' -target /"
     end
 
     execute "hdiutil detach '/Volumes/#{volumes_dir}'"
